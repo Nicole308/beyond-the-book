@@ -69,6 +69,10 @@ const indexRouter = require('./routes/index');
 const booksRouter = require('./routes/books');
 const res = require('express/lib/response');
 
+app.get('/checking', (req, res) => {
+	res.send('The server is working');
+});
+
 // Use route
 app.use('/', indexRouter);
 app.use('/users', userRouter);
