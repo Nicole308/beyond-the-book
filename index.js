@@ -14,6 +14,7 @@ const path = require('path');
 require('express-validator');
 require('connect-flash');
 const session = require('express-session');
+const MemoryStore = require('memorystore')(session);
 const passport = require('passport');
 
 env = process.env.NODE_ENV || 'development';
@@ -37,10 +38,18 @@ app.use(express.urlencoded({ extended: false })); // Setup server to accept form
 
 // Express Session Middleware
 app.use(session({
-	secret: 'keyboard cat',
+	cookie: {maxAge: 86400000},
+	store: new MemoryStore({
+		checkPeriod: 86400000
+	}),
 	resave: true,
-	saveUninitialized: true
+	secret: 'keyboard cat',
 }));
+// app.use(session({
+// 	secret: 'keyboard cat',
+// 	resave: true,
+// 	saveUninitialized: true
+// }));
 
 // Express Messages Middleware
 app.use(require('connect-flash')());
