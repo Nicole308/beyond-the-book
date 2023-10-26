@@ -8,7 +8,8 @@
 		"start": "node index.js",
 		"dev": "nodemon index.js",
 		"sass:build": "node-sass public/sass/index.sass public/stylesheets/index.css",
-		"sass:watch": "node-sass -w public/sass/index.sass public/stylesheets/index.css"
+		"sass:watch": "node-sass -w public/sass/index.sass public/stylesheets/index.css",
+		"postinstall": "prisma generate"
 	},
 	"repository": {
 		"type": "git",
