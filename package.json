@@ -32,7 +32,7 @@
 		"http": "^0.0.1-security",
 		"jquery": "^3.6.0",
 		"mongoose": "^6.1.7",
-		"node-sass": "^7.0.1",
+		"node-sass": "^9.0.0",
 		"passport": "^0.5.2",
 		"passport-local": "^1.0.0",
 		"pug": "^3.0.2"
