@@ -44,6 +44,7 @@ app.use(session({
 	}),
 	resave: true,
 	secret: 'keyboard cat',
+	saveUninitialized: true
 }));
 // app.use(session({
 // 	secret: 'keyboard cat',
