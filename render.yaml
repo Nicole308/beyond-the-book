@@ -1,0 +1,24 @@
+databases: 
+  - name: beyond-book
+    databaseName: beyond_shadow
+    user: beyond_shadow_user
+
+services:
+- type: pserv
+  name: pgbouncer
+  runtime: docker
+  plan: standard
+  repo: https://github.com/Nicole308/beyond-the-book
+  envVars:
+  - key: postgres://beyond_shadow_user:zgW9y9zLqn2G1AaB2PcjBKNaZwZPftc2@dpg-cktl2venfb1c73elu71g-a/beyond_shadow
+    fromDatabase:
+      name: dpg-cktl2venfb1c73elu71g-a
+      property: postgres://beyond_shadow_user:zgW9y9zLqn2G1AaB2PcjBKNaZwZPftc2@dpg-cktl2venfb1c73elu71g-a:5432/beyond_shadow
+  - key: POOL_MODE
+    value: transaction
+  - key: SERVER_RESET_QUERY
+    value: DISCARD ALL
+  - key: MAX_CLIENT_CONN
+    value: 500
+  - key: DEFAULT_POOL_SIZE
+    value: 50
