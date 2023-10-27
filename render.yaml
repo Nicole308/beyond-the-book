@@ -10,7 +10,7 @@ services:
   plan: standard
   repo: https://github.com/Nicole308/beyond-the-book
   envVars:
-  - key: postgres://beyond_shadow_user:zgW9y9zLqn2G1AaB2PcjBKNaZwZPftc2@dpg-cktl2venfb1c73elu71g-a/beyond_shadow
+  - key: dpg-cktl2venfb1c73elu71g-a
     fromDatabase:
       name: dpg-cktl2venfb1c73elu71g-a
       property: connectionString
