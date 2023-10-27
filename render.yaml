@@ -6,7 +6,6 @@ databases:
 services:
 - type: web
   name: pgbouncer
-  plan: standard
   envVars:
   - key: DATABASE_URL
     fromDatabase:
