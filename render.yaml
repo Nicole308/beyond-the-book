@@ -10,7 +10,7 @@ services:
   plan: standard
   repo: https://github.com/Nicole308/beyond-the-book
   envVars:
-  - key: dpg-cktl2venfb1c73elu71g-a
+  - key: dpg-cktl2venfb1c73elu71g-a:5432
     fromDatabase:
       name: dpg-cktl2venfb1c73elu71g-a
       property: connectionString
