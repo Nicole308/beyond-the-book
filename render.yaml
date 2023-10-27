@@ -6,6 +6,7 @@ databases:
 services:
 - type: web
   name: pgbouncer
+  startCommand: "echo 'pgbouncer is running'"
   envVars:
   - key: DATABASE_URL
     fromDatabase:
