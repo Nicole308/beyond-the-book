@@ -13,7 +13,7 @@ services:
   - key: postgres://beyond_shadow_user:zgW9y9zLqn2G1AaB2PcjBKNaZwZPftc2@dpg-cktl2venfb1c73elu71g-a/beyond_shadow
     fromDatabase:
       name: dpg-cktl2venfb1c73elu71g-a
-      property: postgres://beyond_shadow_user:zgW9y9zLqn2G1AaB2PcjBKNaZwZPftc2@dpg-cktl2venfb1c73elu71g-a:5432/beyond_shadow
+      property: connectionString
   - key: POOL_MODE
     value: transaction
   - key: SERVER_RESET_QUERY
