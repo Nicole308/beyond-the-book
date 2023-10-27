@@ -4,13 +4,12 @@ databases:
     user: beyond_shadow_user
 
 services:
-- type: pserv
+- type: web
   name: pgbouncer
   runtime: docker
   plan: standard
-  repo: https://github.com/Nicole308/beyond-the-book
   envVars:
-  - key: dpg-cktl2venfb1c73elu71g-a:5432
+  - key: DATABASE_URL
     fromDatabase:
       name: beyond_shadow
       property: connectionString
