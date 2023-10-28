@@ -12,22 +12,37 @@ require('connect-flash');
 
 // Render all books API returning JSON data (used in search feature)
 router.get('/all', async (req, res) => {
-	const books = await prisma.book.findMany({});
-	res.json(books);
+	try {
+		const books = await prisma.book.findMany({});
+		if(books){
+			res.json(books);
+		} else {
+			console.log('books/all error');
+		}
+	} catch(err){
+		console.log('books/all error: ', err);
+	} 
 });
 
 // Render Add Book
 router.get('/add', ensureAuthenticated, async (req, res) => {
-	const distinctGenre = await prisma.genre.findMany({
-		distinct: ['genre'],
-		select: {
-			genre: true,
-		},
-		orderBy: {
-			genre: 'asc'
-		}
-	});
-	res.render('add_book.pug', { distinctGenre });
+	try {
+		const distinctGenre = await prisma.genre.findMany({
+			distinct: ['genre'],
+			select: {
+				genre: true,
+			},
+			orderBy: {
+				genre: 'asc'
+			}
+		});
+		res.render('add_book.pug', { distinctGenre });
+	} catch(err){
+		console.log('books/add error: ', err);
+	} finally {
+		await prisma.$disconnect();
+	}
+	
 });
 
 // Render Book Genre
@@ -37,85 +52,121 @@ router.get('/genre', ensureAuthenticated, async (req, res) => {
 
 // Render Book Modify
 router.get('/modify/:id', ensureAuthenticated, async (req, res) => {
-	const book = await prisma.book.findUnique({
-		where: {
-			id: parseInt(req.params.id)
+	try {
+		const book = await prisma.book.findUnique({
+			where: {
+				id: parseInt(req.params.id)
+			}
+		});
+		const distinctGenre = await prisma.genre.findMany({
+			distinct: ['genre'],
+			select: {
+				genre: true,
+			},
+			orderBy: {
+				genre: 'asc'
+			}
+		});
+		if(book && distinctGenre){
+			res.render('modify_book.pug', { distinctGenre, book });
+		} else {
+			console.log('books/modify/:id error');
 		}
-	});
-	const distinctGenre = await prisma.genre.findMany({
-		distinct: ['genre'],
-		select: {
-			genre: true,
-		},
-		orderBy: {
-			genre: 'asc'
-		}
-	});
-	res.render('modify_book.pug', { distinctGenre, book });
+	} catch(err){
+		console.log('books/modify/:id error: ', err);
+	} finally {
+		await prisma.$disconnect();
+	}
 });
 
 // Render Page Modify
 router.get('/page/modify/:id', ensureAuthenticated, async (req, res) => {
-	const page = await prisma.page.findUnique({
-		where: {
-			id: parseInt(req.params.id)
+	try {
+		const page = await prisma.page.findUnique({
+			where: {
+				id: parseInt(req.params.id)
+			}
+		});
+		const book = await prisma.book.findUnique({
+			where: {
+				id: page.bookID
+			}
+		});
+		const pages = await prisma.page.findMany({
+			where: {
+				bookID: book.id
+			},
+			include: {
+				histories: true
+			},
+			orderBy: {
+				pageNumber: 'asc'
+			}
+		});
+		if(page && book && pages){
+			res.render('modify_page.pug', { page, book, pages });
+		} else {
+			console.log('books/page/modify/:id error');
 		}
-	});
-	const book = await prisma.book.findUnique({
-		where: {
-			id: page.bookID
-		}
-	});
-	const pages = await prisma.page.findMany({
-		where: {
-			bookID: book.id
-		},
-		include: {
-			histories: true
-		},
-		orderBy: {
-			pageNumber: 'asc'
-		}
-	});
-	res.render('modify_page.pug', { page, book, pages });
+	} catch(err){
+		console.log('books/page/modify/:id error: ', err);
+	} finally {
+		await prisma.$disconnect();
+	}
+	
 });
 
 // Render Page conflict
 router.get('/page/conflict/:id', ensureAuthenticated, async (req, res) => {
-	const page = await prisma.page.findUnique({
-		where: {
-			id: parseInt(req.params.id)
-		}
-	});
-	res.render('modify_page_conflict.pug', { page });
+	try {
+		const page = await prisma.page.findUnique({
+			where: {
+				id: parseInt(req.params.id)
+			}
+		});
+		if(page){
+			res.render('modify_page_conflict.pug', { page });
+		} else {
+			console.log('/page/conflict/:id error');
+		} 
+	} catch(err){
+		console.log('/page/conflict/:id error: ', err);
+	} finally {
+		await prisma.$disconnect();
+	}
 });
 
 // Render Delete Book
 router.get('/delete/:id', ensureAuthenticated, async (req, res) => {
-	const book = await prisma.book.findUnique({
-		where: {
-			id: parseInt(req.params.id)
-		}
-	});
-	const user = await prisma.user.findUnique({
-		where: {
-			userName: book.authorName
-		}
-	});
-	const page = await prisma.page.findMany({
-		where: {
-			bookID: book.id
-		},
-		orderBy: {
-			pageNumber: 'asc'
-		}
-	});
-	const genre = await prisma.genre.findFirst({
-		where: {
-			id: book.genreID
-		}
-	});
-	res.render('delete_book.pug', { book, user, page, genre });
+	try {
+		const book = await prisma.book.findUnique({
+			where: {
+				id: parseInt(req.params.id)
+			}
+		});
+		const user = await prisma.user.findUnique({
+			where: {
+				userName: book.authorName
+			}
+		});
+		const page = await prisma.page.findMany({
+			where: {
+				bookID: book.id
+			},
+			orderBy: {
+				pageNumber: 'asc'
+			}
+		});
+		const genre = await prisma.genre.findFirst({
+			where: {
+				id: book.genreID
+			}
+		});
+		res.render('delete_book.pug', { book, user, page, genre });
+	} catch(err){
+		console.log('books/delete/:id error: ', err);
+	}
+	
 });
 
 // Add Genre
@@ -160,8 +211,9 @@ router.post('/genre', ensureAuthenticated,
 				message: err.message,
 				error: err
 			});
+		} finally {
+			await prisma.$disconnect();
 		}
-
 	});
 
 // Add Book
@@ -228,8 +280,9 @@ router.post('/add', ensureAuthenticated,
 				message: err.message,
 				error: err
 			});
+		} finally {
+			await prisma.$disconnect();
 		}
-
 	});
 
 // Get Single book
@@ -277,6 +330,8 @@ router.get('/:id', async (req, res) => {
 			message: err.message,
 			error: err
 		});
+	} finally {
+		await prisma.$disconnect();
 	}
 });
 
@@ -345,6 +400,8 @@ router.post('/modify/:id', ensureAuthenticated,
 					message: err.message,
 					error: err
 				});
+			} finally {
+				await prisma.$disconnect();
 			}
 		}
 	});
@@ -413,6 +470,8 @@ router.get('/page/:id', async (req, res) => {
 			message: err.message,
 			error: err
 		});
+	} finally {
+		await prisma.$disconnect();
 	}
 });
 
@@ -517,8 +576,9 @@ router.post('/:id', ensureAuthenticated,
 				message: err.message,
 				error: err
 			});
+		} finally {
+			await prisma.$disconnect();
 		}
-
 	});
 
 // Approve Requests
@@ -568,7 +628,7 @@ router.post('/page/:id', ensureAuthenticated, async (req, res) => {
 
 	} catch (e) {
 		res.send(e);
-	}
+	} 
 });
 
 // Modify Page
@@ -756,6 +816,8 @@ router.post('/page/modify/:id', ensureAuthenticated,
 							message: err.message,
 							error: err
 						});
+					} finally {
+						await prisma.$disconnect();
 					}
 				}
 			}
@@ -883,6 +945,8 @@ router.post('/page/conflict/:id', ensureAuthenticated,
 						message: err.message,
 						error: err
 					});
+				} finally {
+					await prisma.$disconnect();
 				}
 			}
 		}
@@ -938,29 +1002,43 @@ router.post('/request/:id', ensureAuthenticated,
 
 // Delete Book
 router.delete('/delete/:id', ensureAuthenticated, async (req, res) => {
-	await prisma.page.deleteMany({
-		where: {
-			bookID: parseInt(req.params.id)
-		}
-	});
-	await prisma.book.delete({
-		where: {
-			id: parseInt(req.params.id)
-		}
-	});
-	req.flash('success', 'Book successfully deleted');
-	res.status(200).send('Successfully deleted');
+	try {
+		await prisma.page.deleteMany({
+			where: {
+				bookID: parseInt(req.params.id)
+			}
+		});
+		await prisma.book.delete({
+			where: {
+				id: parseInt(req.params.id)
+			}
+		});
+		req.flash('success', 'Book successfully deleted');
+		res.status(200).send('Successfully deleted');
+	} catch(err){
+		console.log('books/delete/:id error: ', err);
+	} finally {
+		await prisma.$disconnect();
+	}
+	
 });
 
 // Delete Page
 router.delete('/page/delete/:id', ensureAuthenticated, async (req, res) => {
-	await prisma.page.delete({
-		where: {
-			id: parseInt(req.params.id)
-		}
-	});
-	req.flash('success', 'Page successfully deleted');
-	res.status(200).send('Successfully deleted');
+	try {
+		await prisma.page.delete({
+			where: {
+				id: parseInt(req.params.id)
+			}
+		});
+		req.flash('success', 'Page successfully deleted');
+		res.status(200).send('Successfully deleted');
+	} catch(err){
+		console.log('books/page/delete/:id error: ', err);
+	} finally {
+		await prisma.$disconnect();
+	}
+	
 });
 
 // Access Control

@@ -104,7 +104,9 @@ router.post('/register',
 					message: err.message,
 					error: err
 				});
-			}			
+			} finally {
+				await prisma.$disconnect();
+			}		
 		}
 	});
 
@@ -133,7 +135,18 @@ router.get('/profile', ensureAuthenticated, async (req, res) => {
 			}
 		}
 	});
-	res.render('profile.pug', { books, userTotalBooksCount });
+	try {
+		res.render('profile.pug', { books, userTotalBooksCount });
+	} catch(err){
+		new Error('users/profile went wrong');
+		res.render('error', {
+			message: err.message,
+			error: err
+		});
+	} finally {
+		await prisma.$disconnect();
+	}
+	
 });
 
 // Render modify profile page
@@ -193,6 +206,8 @@ router.post('/modify', ensureAuthenticated,
 					message: err.message,
 					error: err
 				});
+			} finally {
+				await prisma.$disconnect();
 			}
 		}
 	});
@@ -249,6 +264,8 @@ router.post('/modify/password', ensureAuthenticated,
 					message: err.message,
 					error: err
 				});
+			} finally {
+				await prisma.$disconnect();
 			}
 		}
 	});
@@ -267,10 +284,14 @@ router.post('/login', async (req, res, next) => {
 
 // Handles logout process
 router.get('/logout', async (req, res) => {
-	req.logout();
-	req.flash('success', 'You are successfully logged out');
-	req.flash('success', 'Thanks for using OpenSource TextBook!');
-	res.redirect('/users/login');
+	try{
+		req.logout();
+		req.flash('success', 'You are successfully logged out');
+		req.flash('success', 'Thanks for using OpenSource TextBook!');
+		res.redirect('/users/login');
+	} catch(err){
+		console.log('/logout error: ', err);
+	} 
 });
 
 // Custom middleware to check if email and and username already exists (pre-registration)

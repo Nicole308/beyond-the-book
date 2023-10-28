@@ -114,5 +114,5 @@ app.use(function (err, req, res, next) {
 const PORT = process.env.PORT || 3000;
 // Listen to Server
 app.listen(PORT, '0.0.0.0', () => {
-	console.log(`Server started on http://localhost:${process.env.PORT || 3000}`);
+	console.log(`Server started on http://localhost:${process.env.PORT}`);
 });
