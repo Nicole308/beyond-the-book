@@ -39,9 +39,7 @@ router.get('/add', ensureAuthenticated, async (req, res) => {
 		res.render('add_book.pug', { distinctGenre });
 	} catch(err){
 		console.log('books/add error: ', err);
-	} finally {
-		await prisma.$disconnect();
-	}
+	} 
 	
 });
 
@@ -74,9 +72,7 @@ router.get('/modify/:id', ensureAuthenticated, async (req, res) => {
 		}
 	} catch(err){
 		console.log('books/modify/:id error: ', err);
-	} finally {
-		await prisma.$disconnect();
-	}
+	} 
 });
 
 // Render Page Modify
@@ -110,10 +106,7 @@ router.get('/page/modify/:id', ensureAuthenticated, async (req, res) => {
 		}
 	} catch(err){
 		console.log('books/page/modify/:id error: ', err);
-	} finally {
-		await prisma.$disconnect();
-	}
-	
+	} 
 });
 
 // Render Page conflict
@@ -131,9 +124,7 @@ router.get('/page/conflict/:id', ensureAuthenticated, async (req, res) => {
 		} 
 	} catch(err){
 		console.log('/page/conflict/:id error: ', err);
-	} finally {
-		await prisma.$disconnect();
-	}
+	} 
 });
 
 // Render Delete Book
@@ -211,8 +202,6 @@ router.post('/genre', ensureAuthenticated,
 				message: err.message,
 				error: err
 			});
-		} finally {
-			await prisma.$disconnect();
 		}
 	});
 
@@ -280,9 +269,7 @@ router.post('/add', ensureAuthenticated,
 				message: err.message,
 				error: err
 			});
-		} finally {
-			await prisma.$disconnect();
-		}
+		} 
 	});
 
 // Get Single book
@@ -400,9 +387,7 @@ router.post('/modify/:id', ensureAuthenticated,
 					message: err.message,
 					error: err
 				});
-			} finally {
-				await prisma.$disconnect();
-			}
+			} 
 		}
 	});
 

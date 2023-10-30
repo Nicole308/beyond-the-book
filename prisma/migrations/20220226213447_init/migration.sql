@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Page" ALTER COLUMN "pageNumber" SET DATA TYPE TEXT;
