@@ -37,7 +37,6 @@ To provide an integrated platform which is our website, where people who want to
 
 # Our Team
 
-You can contact the Author in discord
 - [Angelo Guerra](https://github.com/RazielGelo) 
 - [Emil](https://github.com/emilsangil)
 - [Clarissa Nicole Taswin](https://github.com/Nicole308)
