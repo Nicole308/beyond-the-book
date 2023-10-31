@@ -1,17 +1,21 @@
-Beyond the Books Project
------------------------------------------------------------------------------------------------------------------------
-Overview
------------------------------------------------------------------------------------------------------------------------
+# Beyond the Books Project
+
+**Original Repository Link: [OpenSourceTB](https://github.com/RazielGelo/OpenSourceTB)**
+
+# Overview
+
 We thought of making an open source website for our project in CSTP 1206 that will be helpful to everyone specially with the students, with the help of contributors which we can call educators that will share their knowledge by adding and updating virtual books that will be available to everyone. An open source website unlike static paper textbooks, the open source textbook reflects users' experience and opinions to always improve the knowledge of people all over the world. You can take a look at our documentation.
 
------------------------------------------------------------------------------------------------------------------------
-Objective
------------------------------------------------------------------------------------------------------------------------
+# Objective
+
 To provide an integrated platform which is our website, where people who want to learn and gain knowledge that can be useful not only in their school life but also outside of it and people who love to share their knowledge but are unable because of the lack of platforms that they can use and contribute freely. These virtual books are free for anyone to read, update and publish.
 
------------------------------------------------------------------------------------------------------------------------
-Project Structure Folder
------------------------------------------------------------------------------------------------------------------------
+# Built with 
+![Pug](https://img.shields.io/badge/Pug-FFF?style=for-the-badge&logo=pug&logoColor=A86454) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white) ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white) ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white) 
+
+
+# Project Structure Folder
+
 <li>middleware: Contains the passport.js </li>
 <li>prisma: Contains the database structure and its relationship </li>
 <li>public: Contains all CSS, JS, and SASS </li>
@@ -21,9 +25,8 @@ Project Structure Folder
 <li>index.js: Contains codes that initializes the website and libraries </li>
 <li>package.json: Contains scripts that's used to run the website and other package dependencies</li>
 
------------------------------------------------------------------------------------------------------------------------
-How To Run
------------------------------------------------------------------------------------------------------------------------
+# How To Run
+
 <li>Create a new folder and give a name</li>
 <li>Open the CMD command and go to the folder</li>
 <li>Type in "git clone https://github.com/RazielGelo/OpenSourceTB.git"</li>
@@ -32,20 +35,14 @@ How To Run
 <li>Run the folder by type in "npm run dev"</li>
 
 
------------------------------------------------------------------------------------------------------------------------
-Contribution
------------------------------------------------------------------------------------------------------------------------
-We would like to say thank you if you are planning on contributing in our project and if ever you want to contribute please feel free to message one of the Authors
+# Our Team
 
------------------------------------------------------------------------------------------------------------------------
-Support
------------------------------------------------------------------------------------------------------------------------
 You can contact the Author in discord
-- Angelo Guerra#7613
-- Emil#4049
-- CynNic#0676
-- NewLiberties#4008
-- Puppey#6318
+- [Angelo Guerra](https://github.com/RazielGelo) 
+- [Emil](https://github.com/emilsangil)
+- [Clarissa Nicole Taswin](https://github.com/Nicole308)
+- [Keisuke Kawataki](https://github.com/newliberties)
+- [Inigo](https://github.com/inigomari)
 
 
 **********************************
